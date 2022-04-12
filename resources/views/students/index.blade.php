@@ -1,24 +1,50 @@
-@extends('students.layout')
+@extends('layout.layout')
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
- 
-            <div class="col-md-9">
+            <div class="col-md-15">
+                @if($errors->any())
+                    <div class="alert alert-danger">
+                        {{ implode('', $errors->all()) }}
+                    </div>
+                @endif
+                @if(session()->has('message'))
+                    <div class="alert alert-success">
+                        {{ session()->get('message') }}
+                    </div>
+                @endif
                 <div class="card">
                     <div class="card-header">
-                        <h2>Student Crud</h2>
+                        <h2>Student Information</h2>
                     </div>
                     <div class="card-body">
-                        <a href="{{ url('/student/create') }}" class="btn btn-success btn-sm" title="Add New Student">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Add New
-                        </a>
+                        <br/>
+                        <div class="col-md-2">
+                            <form method="GET" class="mt-4" action="{{ route('student.index') }}">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail">Search</label>
+                                    <input type="text" name="name" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter name">
+                                    <br/>
+                                    <div>
+                                    <button type="submit" class = "btn btn-success btn-sm">
+                                        Search
+                                    </button>
+                                        <a href="{{ url('/student/create') }}" class="btn btn-primary btn-sm" title="Add New Student">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Add Student
+                                    </a>
+                                </div>
+                            </form>
+                                
+                            </div>
+
+                        </div>
                         <br/>
                         <br/>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th>No.</th>
                                         <th>Name</th>
                                         <th>Address</th>
                                         <th>Mobile Number</th>

@@ -1,20 +1,34 @@
-@extends('students.layout')
+@extends('layout.layout')
 @section('content')
  
 <div class="card">
-  <div class="card-header">Students Page</div>
+  <div class="card-header text-center">Students Page</div>
   <div class="card-body">
-      
-      <form action="{{ url('student') }}" method="post">
-        {!! csrf_field() !!}
-        <label>Name</label></br>
-        <input type="text" name="name" id="name" class="form-control"></br>
-        <label>Address</label></br>
-        <input type="text" name="address" id="address" class="form-control"></br>
-        <label>Mobile</label></br>
-        <input type="text" name="mobile" id="mobile" class="form-control"></br>
-        <input type="submit" value="Save" class="btn btn-success"></br>
-    </form>
+    @if($errors->any())
+      <div class="alert alert-danger">
+         {{ implode('', $errors->all()) }}
+      </div>
+    @endif
+    @if(session()->has('message'))
+    <div class="alert alert-success">
+      {{ session()->get('message') }}
+    </div>
+    @endif
+    <div class="row justify-content-center">
+      <div class="col-md-5">
+        <form action="{{ url('student') }}" method="post">
+          {!! csrf_field() !!}
+          <label>Name</label></br>
+          <input type="text" name="name" id="name" class="form-control"></br>
+          <label>Address</label></br>
+          <input type="text" name="address" id="address" class="form-control"></br>
+          <label>Mobile</label></br>
+          <input type="text" name="mobile" id="mobile" class="form-control"></br>
+          <a href="{{ route('student.index') }}" class="btn btn-danger">Cancel</a>
+          <input type="submit" value="Save" class="btn btn-success"></br>
+        </form>
+      </div>
+    </div>
    
   </div>
 </div>

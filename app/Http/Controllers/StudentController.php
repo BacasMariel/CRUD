@@ -17,7 +17,7 @@ class StudentController extends Controller
         //$students = Student::where("content","LIKE","%".$request->content."%")->latest()->get();
         $students = Student::all();
         return view ('students.index',compact('students'));
-        //view ('welcome.index')->with('students', $students);
+        
     }
 
     /**
@@ -38,9 +38,12 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        // $input = $request->validate([
+        //     'students' => 'required|unique:students|max:255',
+        // ]);
         $input = $request->all();
         Student::create($input);
-        return redirect('student')->with('flash_message', 'Student Addedd!');
+        return redirect('student')->with('message', 'Student Added!');
     }
 
     /**
@@ -79,7 +82,7 @@ class StudentController extends Controller
         $student = Student::find($id);
         $input = $request->all();
         $student->update($input);
-        return redirect('student')->with('flash_message', 'student Updated!');
+        return redirect('student')->with('message', 'Student Updated!');
     }
 
     /**
@@ -91,6 +94,6 @@ class StudentController extends Controller
     public function destroy($id)
     {
         Student::destroy($id);
-        return redirect('student')->with('flash_message', 'Student deleted!');
+        return redirect('student')->with('message', 'Student deleted!');
     }
 }
